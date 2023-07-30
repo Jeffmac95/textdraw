@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>textdraw</title>
+
+    <style>
+        #txt {
+            resize: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="text_area">
+        <textarea id="txt" cols="30" rows="10" wrap="soft"></textarea>
+        <button>Save</button>
+    </div>
+
+    <div id="paint_tools">
+        <button>thin</button>
+        <button>thick</button>
+        <button>erase</button>
+        <button>erase all</button>
+        <button>Save</button>
+    </div>
+
+    <canvas id="canvas" width="1000", height="700"></canvas>
+
+
+
+    <script src="main.js"></script>
+</body>
+</html>
