@@ -3,31 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>textdraw</title>
-
-    <style>
-        #txt {
-            resize: none;
-        }
-    </style>
 </head>
 
 <body>
     <div id="text_area">
-        <textarea id="txt" cols="30" rows="10" wrap="soft"></textarea>
-        <button>Save</button>
+        <textarea id="txt" cols="190" rows="15" wrap="soft"></textarea>
+        <button id="save_txt_button">Save .txt</button>
     </div>
 
-    <div id="paint_tools">
-        <button>thin</button>
-        <button>thick</button>
-        <button>erase</button>
-        <button>erase all</button>
-        <button>Save</button>
+    <div id="container">
+        <div id="paint_tools">
+            <button>thin</button>
+            <button>thick</button>
+            <button id="eraser">eraser</button>
+            <button id="nuke">erase all</button>
+            <button>Save .png</button>
+        </div>
+
+        <canvas id="canvas" width="1000", height="650"></canvas>
     </div>
-
-    <canvas id="canvas" width="1000", height="700"></canvas>
-
 
 
     <script src="main.js"></script>
