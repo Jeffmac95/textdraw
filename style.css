@@ -12,21 +12,14 @@ html, body {
 #nuke:hover {
     background: red;
 }
-button:hover {
-    box-shadow: 0 0 5px 5px #5f5f5f;
-}
 
 #text_area {
     display: flex;
-    justify-content: center;
     margin: 5px 0;
 }
 
 #txt {
     resize: none;
-}
-#txt:focus {
-    box-shadow: 0 0 5px 5px #5f5f5f;
 }
 
 #container {
@@ -48,7 +41,11 @@ canvas {
     background-color: white;
 }
 
-#fileType {
+#save_img_button:hover, #save_txt_button:hover {
+    background: #3a6eff;
+}
+
+#fileName, #imgName {
     height: auto;
     width: auto;
     margin: auto;
