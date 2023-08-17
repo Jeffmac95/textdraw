@@ -2,6 +2,8 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 const WIDTH = canvas.width;
 const HEIGHT = canvas.height;
+const THICC_STROKE = document.querySelector("#thicc_stroke");
+const ERASER = document.querySelector("#eraser");
 const TEXT_AREA = document.querySelector("#txt");
 const FILE_NAME = document.querySelector("#fileName");
 const TXT_BUTTON = document.querySelector("#save_txt_button");
@@ -11,9 +13,13 @@ const NUKE = document.querySelector("#nuke");
 
 let brush_x = 0;
 let brush_y = 0;
+let isThiccStroke = false;
+let isEraser = false;
 
 document.addEventListener("mousedown", start);
 document.addEventListener("mouseup", stop);
+THICC_STROKE.addEventListener("click", toggleThiccDraw);
+ERASER.addEventListener("click", toggleEraser);
 TXT_BUTTON.addEventListener("click", saveFile);
 IMG_BUTTON.addEventListener("click", saveCanvas);
 NUKE.addEventListener("click", clearCanvas);
@@ -30,19 +36,28 @@ function pos(e) {
 }
 
 function stop() {
-    document.removeEventListener("mousemove", draw)
+    document.removeEventListener("mousemove", draw);
 }
 
 function draw(e) {
     ctx.beginPath();
-    ctx.lineWidth = 5;
+    ctx.lineWidth = isThiccStroke ? 12 : 5;
     ctx.lineCap = "round";
-    ctx.strokeStyle = "black";
+    ctx.strokeStyle =  isEraser ? "white" : "black";
     ctx.moveTo(brush_x, brush_y);
     pos(e);
     ctx.lineTo(brush_x, brush_y);
     ctx.stroke();
-    
+}
+
+function toggleThiccDraw() {
+    isThiccStroke = !isThiccStroke;
+
+    THICC_STROKE.textContent = isThiccStroke ? "THIN" : "THICC";
+}
+
+function toggleEraser() {
+    isEraser = !isEraser;
 }
 
 function clearCanvas() {
@@ -56,12 +71,8 @@ function saveFile() {
     });
     const fileName = FILE_NAME.value + ".txt";
 
-    const downloadLink = document.createElement('a');
-    downloadLink.href = URL.createObjectURL(blob);
-    downloadLink.download = fileName;
+    const downloadLink = createDownloadLink(blob, fileName);
     downloadLink.click();
-
-    URL.revokeObjectURL(downloadLink.href);
 
     TEXT_AREA.value = '';
     FILE_NAME.value = '';
@@ -69,14 +80,21 @@ function saveFile() {
 
 function saveCanvas() {
     const imgData = canvas.toDataURL("image/png");
-    const link = document.createElement('a');
-    link.href = imgData;
-    link.download = IMG_NAME.value + ".png";
+    const fileName = IMG_NAME.value + ".png";
 
-    link.click();
-    link.remove();
+    const downloadLink = createDownloadLink(imgData, fileName);
+    downloadLink.click();
 
     clearCanvas();
 }
 
-// TODO: Make a draw function that draws thicker brush, and a function that erases (draws white?).
+// Function to create a download link element
+function createDownloadLink(data, fileName) {
+    const link = document.createElement('a');
+    link.href = data;
+    link.download = fileName;
+    return link;
+}
+
+const day = new Date();
+console.log(`[INFO]: ${day}`);
