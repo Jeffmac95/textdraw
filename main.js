@@ -16,8 +16,8 @@ let brush_y = 0;
 let isThiccStroke = false;
 let isEraser = false;
 
-document.addEventListener("mousedown", start);
-document.addEventListener("mouseup", stop);
+canvas.addEventListener("mousedown", start);
+canvas.addEventListener("mouseup", stop);
 THICC_STROKE.addEventListener("click", toggleThiccDraw);
 ERASER.addEventListener("click", toggleEraser);
 TXT_BUTTON.addEventListener("click", saveFile);
@@ -64,6 +64,14 @@ function clearCanvas() {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
 }
 
+// Function to create a download link element
+function createDownloadLink(data, fileName) {
+    const link = document.createElement('a');
+    link.href = data;
+    link.download = fileName;
+    return link;
+}
+
 function saveFile() {
     const textToSave = TEXT_AREA.value;
     const blob = new Blob([textToSave], {
@@ -71,8 +79,9 @@ function saveFile() {
     });
     const fileName = FILE_NAME.value + ".txt";
 
-    const downloadLink = createDownloadLink(blob, fileName);
+    const downloadLink = createDownloadLink(URL.createObjectURL(blob), fileName);
     downloadLink.click();
+
 
     TEXT_AREA.value = '';
     FILE_NAME.value = '';
@@ -86,14 +95,6 @@ function saveCanvas() {
     downloadLink.click();
 
     clearCanvas();
-}
-
-// Function to create a download link element
-function createDownloadLink(data, fileName) {
-    const link = document.createElement('a');
-    link.href = data;
-    link.download = fileName;
-    return link;
 }
 
 const day = new Date();

@@ -10,8 +10,10 @@
 <body>
     <div id="text_area">
         <textarea id="txt" cols="190" rows="15" wrap="soft"></textarea>
-        <button id="save_txt_button">Save .txt</button>
-        <input id="fileName" type="text" placeholder="Type file name">
+        <div class="saveDiv">
+            <input id="fileName" type="text" placeholder="Type file name">
+            <button id="save_txt_button">Save</button>
+        </div>
     </div>
 
     <div id="container">
@@ -21,10 +23,11 @@
             <button id="nuke">NUKE</button>
         </div>
 
-        <canvas id="canvas" width="1000", height="650"></canvas>
-        <button id="save_img_button">Save .png</button>
-
-        <input id="imgName" type="text" placeholder="Type file name">
+        <canvas width="1000", height="650" style="margin: 0 5px; background-color: rgba(255, 255, 255, 85%);"></canvas>
+        <div class="saveDiv">
+            <input id="imgName" type="text" placeholder="Type file name">
+            <button id="save_img_button">Save</button>
+        </div>
     </div>
 
     <script src="main.js"></script>
