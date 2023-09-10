@@ -2,26 +2,26 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 const WIDTH = canvas.width;
 const HEIGHT = canvas.height;
-const THICC_STROKE = document.querySelector("#thicc_stroke");
-const ERASER = document.querySelector("#eraser");
-const TEXT_AREA = document.querySelector("#txt");
-const FILE_NAME = document.querySelector("#fileName");
-const TXT_BUTTON = document.querySelector("#save_txt_button");
-const IMG_BUTTON = document.querySelector("#save_img_button");
-const IMG_NAME = document.querySelector("#imgName");
+const thick_stroke = document.querySelector("#thicc_stroke");
+const eraser = document.querySelector("#eraser");
+const text_area = document.querySelector("#txt");
+const file_name = document.querySelector("#fileName");
+const txt_button = document.querySelector("#save_txt_button");
+const img_button = document.querySelector("#save_img_button");
+const img_name = document.querySelector("#imgName");
 const NUKE = document.querySelector("#nuke");
 
 let brush_x = 0;
 let brush_y = 0;
-let isThiccStroke = false;
-let isEraser = false;
+let is_thick_stroke = false;
+let is_eraser = false;
 
 canvas.addEventListener("mousedown", start);
 canvas.addEventListener("mouseup", stop);
-THICC_STROKE.addEventListener("click", toggleThiccDraw);
-ERASER.addEventListener("click", toggleEraser);
-TXT_BUTTON.addEventListener("click", saveFile);
-IMG_BUTTON.addEventListener("click", saveCanvas);
+thick_stroke.addEventListener("click", toggleThiccDraw);
+eraser.addEventListener("click", toggleEraser);
+txt_button.addEventListener("click", saveFile);
+img_button.addEventListener("click", saveCanvas);
 NUKE.addEventListener("click", clearCanvas);
 
 function start(e) {
@@ -41,9 +41,9 @@ function stop() {
 
 function draw(e) {
     ctx.beginPath();
-    ctx.lineWidth = isThiccStroke ? 12 : 5;
+    ctx.lineWidth = is_thick_stroke ? 12 : 5;
     ctx.lineCap = "round";
-    ctx.strokeStyle =  isEraser ? "white" : "black";
+    ctx.strokeStyle = is_eraser ? "white" : "black";
     ctx.moveTo(brush_x, brush_y);
     pos(e);
     ctx.lineTo(brush_x, brush_y);
@@ -51,13 +51,13 @@ function draw(e) {
 }
 
 function toggleThiccDraw() {
-    isThiccStroke = !isThiccStroke;
+    is_thick_stroke = !is_thick_stroke;
 
-    THICC_STROKE.textContent = isThiccStroke ? "THIN" : "THICC";
+    thick_stroke.textContent = is_thick_stroke ? "THIN" : "THICC";
 }
 
 function toggleEraser() {
-    isEraser = !isEraser;
+    is_eraser = !is_eraser;
 }
 
 function clearCanvas() {
@@ -73,29 +73,26 @@ function createDownloadLink(data, fileName) {
 }
 
 function saveFile() {
-    const textToSave = TEXT_AREA.value;
+    const textToSave = text_area.value;
     const blob = new Blob([textToSave], {
         type: "text/plain"
     });
-    const fileName = FILE_NAME.value + ".txt";
+    const fileName = file_name.value + ".txt";
 
     const downloadLink = createDownloadLink(URL.createObjectURL(blob), fileName);
     downloadLink.click();
 
 
-    TEXT_AREA.value = '';
-    FILE_NAME.value = '';
+    text_area.value = '';
+    file_name.value = '';
 }
 
 function saveCanvas() {
     const imgData = canvas.toDataURL("image/png");
-    const fileName = IMG_NAME.value + ".png";
+    const fileName = img_name.value + ".png";
 
     const downloadLink = createDownloadLink(imgData, fileName);
     downloadLink.click();
 
     clearCanvas();
 }
-
-const day = new Date();
-console.log(`[INFO]: ${day}`);
